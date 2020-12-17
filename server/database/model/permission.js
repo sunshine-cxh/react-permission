@@ -20,6 +20,10 @@ const PermissionSchema = new Schema({
   icon: {
     type: String,
   },
+  // 权限id
+  permissionId: {
+    type: String,
+  },
   // 父级id
   parentId: {
     type: Number,

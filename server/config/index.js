@@ -4,7 +4,7 @@ const SERVERCONFIG = {
 }
 const MONGODBCONFIG = {
   port: 27017,
-  host: 'localhost',
+  host: '127.0.0.1',
   database: 'react-permission'
 }
 

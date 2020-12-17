@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "reset": "node ./importMongJson/index.js",
     "start": "nodemon index.js"
   },
   "dependencies": {

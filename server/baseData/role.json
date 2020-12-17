@@ -1,8 +1,10 @@
-{
-  "name": "admin",
-  "permissionId": 1
-},
-{
-  "name": "user",
-  "permissionId": 2
-}
+[
+  {
+    "name": "admin",
+    "permissionId": 1
+  },
+  {
+    "name": "user",
+    "permissionId": 2
+  }
+]
