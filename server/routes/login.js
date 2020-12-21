@@ -29,7 +29,6 @@ router.post('/login', async (req, res) => {
       })
     }
   } else {
-    console.log(user, 'user')
     // 说明存在
     return res.send({
       status: 200,

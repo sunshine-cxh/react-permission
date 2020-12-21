@@ -8,14 +8,10 @@ const RoleSchema = new Schema({
   // 角色名称
   name: {
     type: String,
-    unique: true
+    unique: true,
+    default: 'user' // admin 管理员  user 普通用户
   },
 
-  // 权限id
-  permissionId: {
-    type: String,
-    required: true
-  }
 })
 
-module.exports = mongoose.model('Role', RoleSchema)
+module.exports = mongoose.model('Roles', RoleSchema)
