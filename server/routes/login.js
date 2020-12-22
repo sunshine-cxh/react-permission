@@ -1,6 +1,7 @@
 const express = require('express')
 const User = require('../database/model/user')
 const { sign } = require('../utils/jwt')
+const { Success, Error } = require('../utils/result')
 const router = express.Router()
 
 /**
@@ -17,24 +18,23 @@ router.post('/login', async (req, res) => {
       // 保存token
       user.token = token
       await user.save()
-      return res.send({
-        status: 200,
-        message: '登录成功',
-        token
-      })
+      return res.send(new Success({
+        data: {
+          token
+        }
+      }))
     } catch (error) {
-      return res.send({
-        status: 201,
-        message: error
-      })
+      return res.send(new Error({
+        data: error
+      }))
     }
   } else {
     // 说明存在
-    return res.send({
-      status: 200,
-      message: '登录成功',
-      token: user.token
-    })
+    return res.send(new Success({
+      data: {
+        token: user.token
+      }
+    }))
   }
 })
 

@@ -42,7 +42,7 @@ async function writeData () {
   roles.forEach((role, index) => {
     RolePermission.create({
       roleId: role._id,
-      menus: index === 0 ? ['权限管理', '健康管理'] : ['健康管理']
+      menus: index === 0 ? ['权限管理', '安全管理', '用户管理', '角色管理', '菜单管理', '每日食谱', '健康管理'] : ['健康管理', '每日食谱', '权限管理', '角色管理']
     })
   })
   console.log('基本数据写入完毕，请启动服务器吧~~')

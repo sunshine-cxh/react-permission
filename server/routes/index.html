@@ -9,85 +9,11 @@
 
 <body>
   <script>
-    const permissionsAll = [
-      {
-        "_id": "5fe05f394dc1a53a0436aa9f",
-        "parentName": "0",
-        "type": 0,
-        "name": "健康管理",
-        "path": "/health",
-        "icon": "plus",
-        "component": "Health",
-      },
-      {
-        "_id": "5fe05f394dc1a53a0436aaa0",
-        "parentName": "健康管理",
-        "type": 0,
-        "name": "每日食谱",
-        "path": "/health/food",
-        "icon": "plus",
-        "component": "Food",
-      },
-      {
-        "_id": "5fe05f394dc1a53a0436aa9a",
-        "parentName": "权限管理",
-        "type": 0,
-        "name": "用户管理",
-        "path": "/permission/user",
-        "icon": "plus",
-        "component": "User",
-      },
-      {
-        "_id": "5fe05f394dc1a53a0436aa9b",
-        "parentName": "权限管理",
-        "type": 0,
-        "name": "角色管理",
-        "path": "/permission/role",
-        "icon": "plus",
-        "component": "Role",
-      },
-      {
-        "_id": "5fe05f394dc1a53a0436aa9c",
-        "parentName": "权限管理",
-        "type": 0,
-        "name": "菜单管理",
-        "path": "/permission/menu",
-        "icon": "plus",
-        "component": "Menu",
-      },
-      {
-        "_id": "5fe05f394dc1a53a0436aa9d",
-        "parentName": "0",
-        "type": 0,
-        "name": "权限管理",
-        "path": "/permission",
-        "icon": "plus",
-        "component": "Permission",
-      },
-      {
-        "name": "角色管理儿子",
-        "path": "/permission/role",
-        "icon": "plus",
-        "parentName": "角色管理",
-        "type": 0,
-        "component": "Role"
-      },
-      {
-        "_id": "5fe05f394dc1a53a0436aa9e",
-        "parentName": "0",
-        "type": 0,
-        "name": "安全管理",
-        "path": "/security",
-        "icon": "plus",
-        "component": "Security",
-      }
-    ]
-    // 生成树形结构
     const permissions = [
       {
         parentName: '0',
         type: 0,
-        _id: "5fe05f394dc1a53a0436aa9d",
+        _id: '5fe19d295390f31b90ec8366',
         name: '权限管理',
         path: '/permission',
         icon: 'plus',
@@ -97,71 +23,94 @@
       {
         parentName: '0',
         type: 0,
-        _id: "5fe05f394dc1a53a0436aa9f",
+        _id: '5fe19d295390f31b90ec8367',
+        name: '安全管理',
+        path: '/security',
+        icon: 'plus',
+        component: 'Security',
+        __v: 0
+      },
+      {
+        parentName: '权限管理',
+        type: 0,
+        _id: '5fe19d295390f31b90ec8363',
+        name: '用户管理',
+        path: '/permission/user',
+        icon: 'plus',
+        component: 'User',
+        __v: 0
+      },
+      {
+        parentName: '权限管理',
+        type: 0,
+        _id: '5fe19d295390f31b90ec8364',
+        name: '角色管理',
+        path: '/permission/role',
+        icon: 'plus',
+        component: 'Role',
+        __v: 0
+      },
+      {
+        parentName: '权限管理',
+        type: 0,
+        _id: '5fe19d295390f31b90ec8365',
+        name: '菜单管理',
+        path: '/permission/menu',
+        icon: 'plus',
+        component: 'Menu',
+        __v: 0
+      },
+      {
+        parentName: '健康管理',
+        type: 0,
+        _id: '5fe19d295390f31b90ec8369',
+        name: '每日食谱',
+        path: '/health/food',
+        icon: 'plus',
+        component: 'Food',
+        __v: 0
+      },
+      {
+        parentName: '0',
+        type: 0,
+        _id: '5fe19d295390f31b90ec8368',
         name: '健康管理',
         path: '/health',
         icon: 'plus',
         component: 'Health',
         __v: 0
-      },
-      {
-        "name": "角色管理",
-        "path": "/permission/role",
-        "icon": "plus",
-        "parentName": "权限管理",
-        "type": 0,
-        "component": "Role"
-      },
-      {
-        "name": "角色管理儿子",
-        "path": "/permission/role",
-        "icon": "plus",
-        "parentName": "角色管理",
-        "type": 0,
-        "component": "Role"
-      },
-      {
-        "name": "菜单管理",
-        "path": "/permission/menu",
-        "icon": "plus",
-        "parentName": "权限管理",
-        "type": 0,
-        "component": "Menu"
-      },
-    ]
+      }]
     function filterPermissionsRenderTree(permissionsAll) {
-      return permissionsAll.reduce((p, c) => {
-        if (c.parentName === '0') {
-          p.push(c)
-        } else {
-          const parentMenu = permissionsAll.find(permission => permission.name === c.parentName)
-          if (parentMenu) {
-            parentMenu.children = parentMenu.children ? [...parentMenu.children, c] : [c]
+      function fn(permissions, flag = false) {
+        return permissions.reduce((p, c) => {
+          if (c.parentName === '0') {
+            p.push(c)
+            c.children = []
+            // 找他存在的子元素
+            const cMenus = permissions.filter(item => {
+              return item.parentName === c.name
+            })
+            if (cMenus.length) {
+              c.children.push(...cMenus)
+              fn(cMenus, true)
+            }
           }
-        }
-        return p
-      }, [])
-    }
-    // 树形结构菜单
-    const treeListData = filterPermissionsRenderTree(JSON.parse(JSON.stringify(permissionsAll)))
-    // 过滤多余菜单
-    function filterTreeListData(treeListData) {
-      // console.log(treeListData, '原数组')
-      // console.log(permissions, '要保留的菜单')
-      for (let i = 0; i < treeListData.length; i++) {
-        const item = treeListData[i]
-        if (item.children) {
-          filterTreeListData(item.children)
-        }
-        if (item.name === permissions[0].name) {
-          treeListData.splice(i, 1)
-          i--
-        }
+          if (flag) {
+            const cMenus = permissionsAll.filter(item => {
+              return item.parentName === c.name
+            })
+            if (cMenus.length) {
+              c.children = c.children ? [...c.children, ...cMenus] : cMenus
+              fn(cMenus, true)
+            }
+          }
+          return p
+        }, [])
       }
-      return treeListData
+      const res = fn(permissionsAll)
+      return res
     }
-    const res = filterTreeListData(JSON.parse(JSON.stringify(treeListData)), permissions)
-    console.log(res)
+    console.log(filterPermissionsRenderTree(permissions))
   </script>
 </body>
 

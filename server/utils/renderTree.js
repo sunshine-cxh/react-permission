@@ -1,31 +1,37 @@
-// 生成树形结构
-function renderTree (permissions) {
-  return new Promise((resolve, reject) => {
-    const treeList = permissions.reduce((p, c) => {
-      if (c.parentId === '0') {
+/**
+ * 
+ * @param {*} permissionsAll 传入的菜单数据，自动格式化为树形结构
+ */
+function filterPermissionsRenderTree (permissionsAll) {
+  function fn (permissions, flag = false) {
+    return permissions.reduce((p, c) => {
+      if (c.parentName === '0') {
         p.push(c)
-      } else {
-        // 不是一级菜单
-        const parentPermission = getParentPermission(permissions, c)
-        if (parentPermission) {
-          parentPermission.children = parentPermission.children ? [...parentPermission.children, c] : [c]
-        } else {
-          reject('添加的菜单参数错误', c)
-          return
+        c.children = []
+        // 找他存在的子元素
+        const cMenus = permissions.filter(item => {
+          return item.parentName === c.name
+        })
+        if (cMenus.length) {
+          c.children.push(...cMenus)
+          fn(cMenus, true)
+        }
+      }
+      if (flag) {
+        const cMenus = permissionsAll.filter(item => {
+          return item.parentName === c.name
+        })
+        if (cMenus.length) {
+          c.children = c.children ? [...c.children, ...cMenus] : cMenus
+          fn(cMenus, true)
         }
       }
       return p
     }, [])
-    resolve(treeList)
-  })
+  }
+  const res = fn(permissionsAll)
+  console.log(res)
+  return res
 }
 
-// 找对应的父级节点
-function getParentPermission (permissions, item) {
-  return permissions.find(permission => {
-    console.log(permission._id, item.parentId, '~~~')
-    return permission._id == item.parentId
-  })
-}
-
-module.exports = renderTree
+module.exports = filterPermissionsRenderTree
