@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
+import { Spin } from 'antd';
 import { connect } from 'react-redux';
 import AuthLayout from './authLayout';
 import Login from '../login';

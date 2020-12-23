@@ -15,7 +15,7 @@ router.post('/userInfo', async (req, res) => {
   const { token } = req.headers
   try {
     // 1.根据token在User表中查询用户,得到用户id
-    const user = await User.findOne({ token }, '_id')
+    const user = await User.findOne({ token })
     const userId = user._id
     // 2.根据用户id去UserRole表中查询对应的角色名称
     const roleNameArr = await UserRole.findOne({ userId }, 'roleName')
@@ -42,7 +42,11 @@ router.post('/userInfo', async (req, res) => {
     const data = renderTree(JSON.parse(JSON.stringify(arr)))
     // 7.返回树形结构数据给前端
     res.send(new Success({
-      data
+      data: {
+        userName: user.username,
+        avatar: user.avatar,
+        menus: data
+      }
     }))
   } catch (error) {
     res.send(new Error({

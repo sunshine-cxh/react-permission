@@ -1,0 +1,52 @@
+.logo {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  img {
+    width: 60px;
+    height: 100%;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  span {
+    white-space: nowrap;
+    color: #fff;
+  }
+  &.collapsed {
+    justify-content: center;
+    & > span {
+      display: none;
+    }
+  }
+}
+.site-layout-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .fullscreen {
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 10px;
+  }
+  .userName {
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+.ant-spin-spinning {
+  height: 10%;
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto !important;
+}

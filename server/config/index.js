@@ -9,9 +9,11 @@ const MONGODBCONFIG = {
 }
 
 const PRIVATEKEY = 'XGfGuyvd'
-
+// 用户白名单，默认只有这两个用户可以登录,并且不检查
+const USERWHITELIST = ['admin', 'user']
 module.exports = {
   SERVERCONFIG,
   MONGODBCONFIG,
-  PRIVATEKEY
+  PRIVATEKEY,
+  USERWHITELIST
 }

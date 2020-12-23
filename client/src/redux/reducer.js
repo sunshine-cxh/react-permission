@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
-import { LOGIN } from './constants'
-const initState = localStorage.getItem('token') ? localStorage.getItem('token') : ''
-function login (prevState = initState, action) {
+import { LOGIN, USER } from './constants'
+const initLoginState = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+function login (prevState = initLoginState, action) {
   switch (action.type) {
     case LOGIN:
       // token,存入localstorage
@@ -11,6 +11,20 @@ function login (prevState = initState, action) {
       return prevState
   }
 }
+const initUserState = {
+
+}
+function user (prevState = initUserState, action) {
+  switch (action.type) {
+    case USER:
+      return action.data
+    default:
+      return prevState
+  }
+}
+
+
 export default combineReducers({
-  login
+  login,
+  user
 })

@@ -15,16 +15,21 @@ instance.interceptors.request.use(config => {
 })
 instance.interceptors.response.use(
   res => {
-    if (res.status === 200) {
+    if (res.data.status === 200) {
       notification.success({
         message: res.status,
         description: errorMessage[res.status]
       })
       return res.data.data
     }
-    return Promise.reject(res.data)
+    notification.error({
+      message: res.data.status,
+      description: res.data.message || errorMessage[res.data.status] || '错误对象中没有引入该status'
+    })
+    return Promise.reject(res.data.message)
   },
   err => {
+    console.log(err, 'err')
     if (err.response) {
       const status = err.response.status
       notification.error({

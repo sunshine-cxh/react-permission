@@ -1,0 +1,51 @@
+.logo {
+  display: flex;
+  height: 60px;
+  align-items: center;
+}
+.logo img {
+  width: 60px;
+  height: 100%;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.logo span {
+  white-space: nowrap;
+  color: #fff;
+}
+.logo.collapsed {
+  justify-content: center;
+}
+.logo.collapsed > span {
+  display: none;
+}
+.site-layout-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.site-layout-header .fullscreen {
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  font-size: 18px;
+}
+.site-layout-header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+.site-layout-header .userName {
+  color: #fff;
+  cursor: pointer;
+}
+.ant-spin-spinning {
+  height: 10%;
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto !important;
+}
